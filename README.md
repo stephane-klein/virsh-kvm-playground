@@ -12,3 +12,9 @@ $ sudo dnf install bridge-utils
 $ sudo systemctl enable libvirtd
 $ sudo systemctl start libvirtd
 ```
+
+Download Fedora37 `qcow2` from [generic/fedora37 Vagrant box](https://app.vagrantup.com/generic/boxes/fedora37):
+
+```sh
+$ ./download-qcow2-from-vagrant-box.sh
+```
