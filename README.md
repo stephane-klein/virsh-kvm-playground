@@ -13,8 +13,21 @@ $ sudo systemctl enable libvirtd
 $ sudo systemctl start libvirtd
 ```
 
+Configure `virsh` default uri:
+
+```sh
+$ mkdir -p  ~/.config/libvirt/
+$ cat <<EOF > ~/.config/libvirt/libvirt.conf
+uri_default = "qemu:///system"
+EOF
+```
+
 Download Fedora37 `qcow2` from [generic/fedora37 Vagrant box](https://app.vagrantup.com/generic/boxes/fedora37):
 
 ```sh
 $ ./download-qcow2-from-vagrant-box.sh
+```
+
+```
+$ virt-install --import --memory 1000 --disk /box3.img --osinfo fedora37 --graphics none --autoconsole none
 ```
