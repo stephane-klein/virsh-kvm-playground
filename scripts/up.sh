@@ -15,5 +15,5 @@ virt-install \
     --memory 4000 \
     --disk /var/lib/libvirt/images/fedora37.qcow2 \
     --osinfo fedora37 \
-    --graphics none \
-    --autoconsole none
+    --graphics spice \
+    --noautoconsole
