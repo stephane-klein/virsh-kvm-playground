@@ -50,3 +50,9 @@ Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 Warning: Permanently added '192.168.122.99' (ED25519) to the list of known hosts.
 vagrant@192.168.122.99's password:
 ```
+
+Open UI window:
+
+```sh
+$ ./scripts/viewer.sh
+```
