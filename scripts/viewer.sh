@@ -3,4 +3,4 @@ set -e
 
 cd "$(dirname "$0")/../"
 
-virt-viewer fedora37
+virt-viewer -a -- fedora37
