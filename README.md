@@ -4,6 +4,18 @@ This playground was written for Fedora (37).
 
 This playground is mainly based on the [Getting started with virtualization](https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-virtualization/) documentation.
 
+Check host config:
+
+```sh
+$ ./scripts/check_host_config.sh
+Virtualization:                     AMD-V
+kvm_amd               204800  0
+kvm                  1372160  1 kvm_amd
+irqbypass              12288  1 kvm
+ccp                   155648  1 kvm_amd
+```
+
+
 Install dependencies:
 
 ```sh
