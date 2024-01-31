@@ -1,6 +1,6 @@
 # virsh + kvm playground
 
-This playground was written for Fedora (37).
+This playground was written for Fedora (39).
 
 This playground is mainly based on the [Getting started with virtualization](https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-virtualization/) documentation.
 
@@ -36,7 +36,7 @@ uri_default = "qemu:///system"
 EOF
 ```
 
-Download Fedora37 `qcow2` from [generic/fedora37 Vagrant box](https://app.vagrantup.com/generic/boxes/fedora37) to `qcow2-images/fedora37.qcow2`:
+Download Fedora39 `qcow2` from [generic/fedora39 Vagrant box](https://app.vagrantup.com/generic/boxes/fedora39) to `qcow2-images/fedora39.qcow2`:
 
 ```sh
 $ ./download-qcow2-from-vagrant-box.sh
@@ -67,4 +67,20 @@ Open UI window:
 
 ```sh
 $ ./scripts/viewer.sh
+```
+
+---
+
+```sh
+$ qemu-system-x86_64 \
+    -machine pc \
+    -enable-kvm \
+    -k fr \
+    -device e1000,netdev=net0 \
+    -netdev user,id=net0,hostfwd=tcp::5555-:22 \
+    -hda qcow2-images/fedora39.qcow2 \
+    -display sdl \
+    -m 4096
+$ ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" vagrant@localhost -p 5555
+$ localectl set-keymap fr-bepo
 ```

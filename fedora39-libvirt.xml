@@ -1,5 +1,5 @@
 <domain type='kvm' id='1'>
-  <name>fedora37</name>
+  <name>fedora39</name>
   <uuid>c1451b28-d68e-4dee-8d4d-5e87a71a4fc4</uuid>
   <metadata>
     <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
