@@ -81,6 +81,35 @@ $ qemu-system-x86_64 \
     -hda qcow2-images/fedora39.qcow2 \
     -display sdl \
     -m 4096
-$ ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" vagrant@localhost -p 5555
-$ localectl set-keymap fr-bepo
 ```
+Cette configuration fonctionne bien :
+
+```
+$ qemu-system-x86_64 \
+    -machine pc \
+    -enable-kvm \
+    -k fr \
+    -device e1000,netdev=net0 \
+    -netdev user,id=net0,hostfwd=tcp::5555-:22 \
+    -hda qcow2-images/fedora39.qcow2 \
+    -display sdl,gl=on,show-cursor=off,grab-mod=rctrl \
+    -m 8096 \
+    -device virtio-vga-gl
+```
+
+Toggle full screen:
+
+- On Qwerty: `rctlr-f`
+- On Azerty: `rctlr-f`
+- On Bépo: `rctlr-e`
+
+Enter in VM via SSH:
+```
+$ ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" vagrant@localhost -p 5555
+```
+
+Default password: `vagrant`.
+
+```
+$ sudo su
+# localectl set-keymap fr-bepo
