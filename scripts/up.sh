@@ -11,10 +11,13 @@ LANG=C
 
 virt-install \
     --name fedora39 \
+    --virt-type kvm \
+    --cpu host \
+    --vcpus 5 \
     --import \
-    --memory 4000 \
+    --memory 8000 \
     --disk /var/lib/libvirt/images/fedora39.qcow2 \
-    --osinfo fedora37 \
+    --osinfo fedora39 \
     --graphics spice,gl.enable=yes,listen=none \
     --video virtio \
     --noautoconsole

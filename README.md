@@ -1,10 +1,43 @@
 # virsh + kvm playground
 
-This playground was written for Fedora (39).
+This playground was written to execute Fedora 39 guest on Fedora 39 host.
 
-This playground is mainly based on the [Getting started with virtualization](https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-virtualization/) documentation.
+## Introduction
 
-Check host config:
+I've been using Vagrant coupled with Virtualbox since 2012, it's done me great service, it's software I enjoy.
+
+In early 2023, I can't remember exactly why (I didn't take notes 🙁 ) I had trouble using Vagrant on Linux.  
+Following this, I was curious to know, if on a Linux host, if I could reproduce the same workflow as Vagrant but based only on some bash and qemu / kvm scripts.
+For me, the Vagrant workflow is as follows:
+
+- a command to download OS image
+- a command to start VM instance
+- a command to enter in VM instance with ssh
+- a command to destroy the VM instance
+
+After completing this playground, I think I've succeeded.
+
+## The stack
+
+In this playground, I use:
+
+- qemu
+- kvm
+- libvirt
+
+Qemu [`virtio-gpu`](https://www.qemu.org/docs/master/system/devices/virtio-gpu.html) device is enabled to paravirtualizes the GPU and display controller.  
+
+This element is important to me, because I want to use what I've built in this playground to create a script that configures my Linux desktop environment from a to z.  
+That is, :
+- instantiate a new VM
+- [launch this command](https://github.com/stephane-klein/dotfiles/blob/d7a8d576121564ed5ac5d1885e7dae1e943a9b4c/README.md?plain=1#L221):
+  ```
+  $ sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply stephane-klein
+  ```
+
+## Getting started
+
+First, I check whether kvm support is enabled on my OS:
 
 ```sh
 $ ./scripts/check_host_config.sh
@@ -15,8 +48,7 @@ irqbypass              12288  1 kvm
 ccp                   155648  1 kvm_amd
 ```
 
-
-Install dependencies:
+Next, I install dependencies:
 
 ```sh
 $ sudo dnf group install --with-optional virtualization
@@ -27,6 +59,8 @@ $ sudo systemctl enable libvirtd
 $ sudo systemctl start libvirtd
 ```
 
+I configure libvirt.
+
 Configure `virsh` default uri:
 
 ```sh
@@ -34,6 +68,12 @@ $ mkdir -p  ~/.config/libvirt/
 $ cat <<EOF > ~/.config/libvirt/libvirt.conf
 uri_default = "qemu:///system"
 EOF
+```
+
+Configure *virt-manager* Grab keys to `Ctrl-R`:
+
+```
+$ dconf read /org/virt-manager/virt-manager/console/grab-keys
 ```
 
 Download Fedora39 `qcow2` from [generic/fedora39 Vagrant box](https://app.vagrantup.com/generic/boxes/fedora39) to `qcow2-images/fedora39.qcow2`:
@@ -113,3 +153,13 @@ Default password: `vagrant`.
 ```
 $ sudo su
 # localectl set-keymap fr-bepo
+# dnf update -y
+# dnf install waybar hyprland
+# reboot
+
+```
+
+## Ressources
+
+This playground is mainly based on the [Getting started with virtualization](https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-virtualization/) documentation.
+
